@@ -1,0 +1,365 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Menu Container */
+.menu {
+    text-align: center;
+    background-color: rgba(250, 245, 223, 0.9); /* Slightly transparent to blend with the background */
+    padding: 20px;
+    border-radius: 0; /* Remove rounding if you want it to cover full screen */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    box-sizing: border-box; /* Ensures padding is included in width/height */
+}
+/* Active Button */
+.menu-btn.active {
+    background-color:rgb(222, 210, 134); /* Change color to indicate selection */
+    color: #333;
+}
+
+/* Title Styles */
+.title {
+    font-size: 80px;
+    color: #b09050;
+    font-weight: bold;
+    margin-top: 0px; /* Adjusted top margin */
+    margin-bottom: 20px;
+}
+
+/* Input Field */
+#playerName {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #d0c09d;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #b09050;
+    text-align: center;
+}
+
+/* Difficulty Section */
+.difficulty-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #d0c09d;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: fit-content;
+    margin-top: 20px;
+}
+
+.difficulty-section p {
+    font-size: 25px;
+    color: #b09050;
+    margin-bottom: 10px;
+}
+
+/* Difficulty Options Container */
+.difficulty-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Difficulty Buttons */
+.difficulty-btn {
+    background-color: #e7e7d4;
+    border: 2px solid #d0c09d;
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 20px;
+    color: #8b8f76;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;
+}
+
+.difficulty-btn span {
+    display: block;
+    font-size: 12px;
+    color: #b0b58e;
+    margin-top: 5px;
+}
+
+/* Menu Buttons */
+.menu-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+/* Active Difficulty Button */
+.difficulty-btn.active {
+    background-color:rgb(222, 210, 134);; /* Highlighted color for active button */
+    color: #333; /* Text color for better contrast */
+    border-color: #d0c09d; /* Optional: Change border color */
+}
+
+
+.menu-btn {
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #5c5c5c;
+    background-color: #e2e5c3;
+    border: 2px solid #d0c09d; /* Add border here */
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.start {
+    background-color: #b5b5b5;
+    color: #ffffff;
+}
+
+
+
+
+
+/* Hover Effects */
+.difficulty-btn:hover, .menu-btn:hover {
+    opacity: 0.8;
+}
+
+/*first page done now for clicking on rules 
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #f7f5f5;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; /* Could be more or less, depending on screen size */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 20px; /* Increased font size for overall content */
+}
+
+/* Increase font size for heading */
+.modal-content h2 {
+    font-size: 30px; /* Heading font size */
+}
+
+/* Increase font size for list items */
+.modal-content ol li {
+    font-size: 25px; /* Font size for list items */
+}
+
+/* Close Button Styles */
+.close-button {
+    color: #832626;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/*here the game started   */
+/* Center the grid table within the game section */
+/* Center the grid table within the game section */
+#gameSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    padding: 0;
+    margin-top: 70px;
+}
+
+/* Style the grid table */
+#gridTable {
+    border-collapse: collapse;
+    margin: 20px auto 0 auto; /* Center the table horizontally */
+}
+
+/* Style each cell in the grid table */
+#gridTable .cell {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #333;
+    background-color: #f0f0f0;
+    padding: 0;
+}
+
+/* Container for the image */
+.image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Ensure the image fills the cell container */
+.cell-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Scale the image to cover the container without distortion */
+}
+
+/* in this part i am managing times css and player name css when the game start */
+/* Player Info Panel */
+#infoPanel { 
+    position: absolute; /* Position it within the viewport */
+    top: 50%; /* Center vertically */
+    left: 20px; /* Fixed position from the left */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+    padding: 20px; /* Increased padding inside the box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    font-size: 40px; /* Larger font size */
+    font-weight: bold; /* Make the font bold */
+    text-align: left; /* Left-align text */
+    width: 400px; /* Set a specific width for the box */
+    height: auto; /* Let the height adjust based on content */
+}
+/* Timer Display Specific Styling */
+#timerDisplay {
+    font-weight: bold; /* Ensure the timer is bold */
+    font-size: 38px; /* Decreased font size for timer display */
+    color: red; /* Set the font color to red */
+}
+
+
+
+/* now here i am managing with a images of pallete of differnet types*/
+
+/* Style for the palette */
+
+.palette {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin: 20px; /* Add some margin around the palette */
+    border: 2px solid #ccc; /* Optional border for visual separation */
+    padding: 10px; /* Padding inside the palette */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    width: 200px; /* Set a fixed width for the palette */
+    
+    /* Positioning to right side of the page */
+    position: fixed; /* Fixes the palette in place */
+    right: 50px; /* Adjust this value for the right margin */
+    top: 100px; /* Adjust as needed to position vertically */
+}
+
+
+/* Title style */
+.palette h2 {
+    margin-bottom: 15px; /* Space below the title */
+}
+
+/* Tile options container */
+.tile-options {
+    display: flex;
+    flex-direction: column; /* Stack tiles vertically */
+    align-items: center; /* Align tiles to the center */
+}
+
+/* Individual tile style */
+.tile1, .tile2, .tile3, .tile4 {
+    display: flex;
+    flex-direction: column; /* Stack image above title */
+    align-items: center; /* Center align vertically */
+    justify-content: center; /* Center content horizontally */
+    margin: 10px 0; /* Space between tiles */
+    width: 100%; /* Make tiles take full width of the palette */
+}
+
+/* Image style */
+.tile1 img, .tile2 img, .tile3 img, .tile4 img {
+    width: 90px; /* Set a fixed width */
+    height: 90px; /* Set a fixed height */
+    object-fit: contain; /* Maintain aspect ratio */
+    margin-bottom: 5px; /* Space between image and title */
+}
+
+/* Optional: Title style for tiles */
+.tile1[title], .tile2[title], .tile3[title], .tile4[title] {
+    font-size: 14px; /* Font size for the title */
+    text-align: center; /* Align title text to the center */
+}
+
+
+
+/*----here i am makinng the game tittle name --*/
+
+.game-title {
+    font-size: 30px;
+    color: #b09050;
+    font-weight: bold;
+    text-align: center; /* Center align the text */
+    width: 100%; /* Optional: Ensures the title container takes full width */
+    margin: 10px auto 0; /* Optional: Centers the title container itself */
+}
+
+
+
+/* here i am applying csss for the end messages*/
+.end-message {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the message */
+    background-color: rgba(0, 0, 0, 0.7); /* Optional: add a background for contrast */
+    padding: 40px; /* Increased padding for more space inside */
+    width: 550px; /* Increased width of the box */
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    z-index: 9999; /* Make sure it's on top of other elements */
+}
+
+.end-message h2 {
+    font-size: 32px; /* Increased font size for the title */
+    margin-bottom: 15px; /* Adjusted margin for spacing */
+}
+
+.end-message p {
+    font-size: 24px; /* Increased font size for the paragraph */
+    margin-bottom: 25px; /* Adjusted margin for spacing */
+}
+
+.end-message button {
+    padding: 15px 30px; /* Increased padding for the button */
+    font-size: 18px; /* Increased font size for the button */
+    background-color: #4CAF50; /* Green background for the button */
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.end-message button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}

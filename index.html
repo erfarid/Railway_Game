@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railways Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Section -->
+    <div id="menuSection" class="menu">
+        <h1 class="title">RAILWAYS</h1>
+        <input type="text" id="playerName" placeholder="Who are you?">
+        
+        <div class="difficulty-section">
+            <p>Set the Difficulty!</p>
+            <div class="difficulty-options">
+                <button id="easy" class="difficulty-btn">5 x 5<br><span>Easy</span></button>
+                <button id="hard" class="difficulty-btn">7 x 7<br><span>Hard</span></button>
+            </div>
+        </div>
+
+        <div class="menu-buttons">
+            <button id="rules" class="menu-btn">Rules</button>
+            <button id="startGame" class="menu-btn start">Start Game</button>
+            <button id="leaderboard" class="menu-btn">Leaderboard</button>
+        </div>
+    </div>
+    <div id="leaderboardSection" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeLeaderboard" class="close-button">&times;</span>
+            <h2>Leaderboard</h2>
+            <ul id="leaderboardList">
+                <!-- Leaderboard entries will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rules Section (hidden by default) -->
+    <div id="rulesSection" class="modal">
+        <div class="modal-content">
+            <span id="closeRules" class="close-button">&times;</span>
+            <h2>Game Rules</h2>
+            <ol>
+                <li>Clicking on cells cycles through the different element types, with options to rotate or delete using the right mouse button.</li>
+                <li>After selecting a tile, elements are chosen from a palette, or you can switch between elements using the arrow keys.</li>
+                <li>Elements can be dragged and dropped onto a tile from a palette.</li>
+                <li>The railway line is drawn by holding down the mouse button and moving across the cells.</li>
+                <li>Each cell has two exit points, and the train can enter each neighboring cell from the correct direction.</li>
+                <li>Every cell that needs to be touched is touched.</li>
+                <li>Every cell where no track can be placed remains empty.</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="game-title" hidden>
+        <h1>RAILWAYS GAME</h1>
+    </div>
+    <div class="gamepage" hidden>
+        <div id="infoPanel" hidden>
+            <h3 id="playerNameDisplay">Player: </h3>
+            <h3>Time Elapsed: <span id="timerDisplay">0</span> seconds</h3>
+        </div>
+    
+        <!-- Game Section -->
+        <div id="gameSection" hidden>
+            <table id="gridTable"></table>
+        </div>
+    
+        <div id="palette" class="palette" hidden>
+            <h2>Select Tile Type</h2>
+            <div class="tile-options">
+                <div class="tile1" id="tileEmpty" title="Empty Tile">
+                    <img src="starter_eng/pics/tiles/straight_rail.png" alt="Empty Tile">
+                </div>
+                <div class="tile2" id="tileMountain" title="Mountain Tile">
+                    <img src="starter_eng/pics/tiles/mountain_rail.png" alt="Mountain Tile">
+                </div>
+                <div class="tile3" id="tileBridge" title="Bridge Tile">
+                    <img src="starter_eng/pics/tiles/curve_rail.png" alt="Bridge Tile">
+                </div>
+                <div class="tile4" id="tileOasis" title="Oasis Tile">
+                    <img src="starter_eng/pics/tiles/bridge_rail.png" alt="Oasis Tile">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="endMessage" style="display: none;" class="end-message">
+        <h2>Congratulations! The track is complete!</h2>
+        <p id="timeTaken"></p>
+        <button onclick="returnToMenu()">Go Back to Main Menu</button>
+    </div>
+    
+    
+    <script src="script.js"></script>
+</body>
+</html>
