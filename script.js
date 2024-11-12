@@ -42,7 +42,8 @@ function hideRules() {
 }
 
 // Function to start the game
-
+let game_container = document.querySelector(".game_container")
+let main_page = document.querySelector(".main_page")
 function startGame() {  
     // Get the player's name and selected difficulty
     const playerName = document.querySelector("#playerName").value;
@@ -54,25 +55,12 @@ function startGame() {
     }
     document.body.style.backgroundColor = "rgba(250, 245, 223, 0.9)";
 
-    // Unhide the game title
-    document.querySelector(".game-title").hidden = false; // Unhide the game title
-
-    // Show the info panel
-    document.querySelector("#infoPanel").hidden = false;
-
-    // Show the tile selection palette
-    document.querySelector("#palette").hidden = false; // Unhide the palette if name and difficulty are valid
-
-    // Hide the menu section
-    document.querySelector("#menuSection").style.display = "none";
+    game_container.hidden = false;
+    main_page.hidden = true
     
-    // Show the gamepage container
-    document.querySelector(".gamepage").hidden = false; // Unhide the gamepage container
+    document.querySelector("#menuSection").hidden = true
+    
 
-    // Unhide the game section
-    document.querySelector("#gameSection").hidden = false; // Unhide the game section
-
-    // Display the player's name
     document.querySelector("#playerNameDisplay").innerText = `Player: ${playerName}`;
 
     // Create the grid based on the selected difficulty
@@ -95,7 +83,7 @@ function startTimer() {
     // Update the timer every second
     timer = setInterval(() => {
         elapsedTime++; // Increment elapsed time
-        document.getElementById("timerDisplay").innerText = `Time: ${elapsedTime}`; // Update timer display
+        document.querySelector("#timerDisplay").innerText = `Time: ${elapsedTime}`; // Update timer display
     }, 1000);
 }
 
@@ -607,7 +595,8 @@ let gridData;
 
 
 function createGrid(size) {
-    const gridTable = document.getElementById("gridTable");
+    const gridTable = document.querySelector("#gridTable");
+
     gridTable.innerHTML = ""; // Clear any previous grid content
 
     const currentMapData = size === 5 ? easymap5 : getRandomMap(mapDataHard); // Select map data based on size
@@ -746,7 +735,6 @@ function createGrid(size) {
         }
     }
 
-
     
 }
 
@@ -777,6 +765,8 @@ closeRulesButton.addEventListener("click", hideRules);
 function assignStartEndPoints(cell, tileType, i, j, gridData, currentMapData) {
 
     console.log("I am in",tileType)
+
+
     const connections = {};  // Object to store start and end values
     const rotation = parseInt(cell.dataset.rotation);  // Get the rotation of the tile
 
@@ -840,6 +830,7 @@ function assignStartEndPoints(cell, tileType, i, j, gridData, currentMapData) {
 }
 
 
+//here now i am dealing with the ending of the game 
 
 function  validDirection(x,y,gridData){
 
@@ -957,137 +948,172 @@ function check(gridData) {
 
 
 
-// function checkAllConnections(gridData){
 
-//     if(check(gridData)){
-//         endGame();
-//     }
-//     else{
-//         console.log("not connected")
-//     }
-// }
+let gameEnded = false;
 
-
-// function endGame() {
-//     alert("Congratulations! The track is complete!");
-//     // Additional game-ending logic can be added here, such as disabling further moves or resetting the game
-// }
-let gameEnded = false; // Flag to indicate if the game has ended
-
-// Function to check all connections and end the game if successful
 function checkAllConnections(gridData) {
-    if (check(gridData)) { // Assuming check() is a function that verifies the connections
+    if (check(gridData)) {
         endGame();
     } else {
         console.log("Not connected");
     }
 }
 
-// Function to handle the end of the game
-
-// Function to check all connections and end the game if 
-// Function to handle the end of the game
-// Initialize leaderboardData from localStorage, or use default if not available
-// Function to end the game
 
 
-// Function to end the game and display the congratulatory message
-// Ensure you have references to the sections
-// Ensure you have references to the sections
-const menuSection = document.getElementById("menuSection");
+const menuSection = document.querySelector("#menuSection");
 const gameTitle = document.querySelector(".game-title");
 const gamePage = document.querySelector(".gamepage");
-const endMessage = document.getElementById("endMessage");
-const timerDisplay = document.getElementById("timerDisplay");
-const gridTable = document.getElementById("gridTable");
-const playerNameInput = document.getElementById("playerName");
+const endMessage = document.querySelector("#endMessage");
+const timerDisplay = document.querySelector("#timerDisplay");
+const gridTable = document.querySelector("#gridTable");
+const playerNameInput = document.querySelector("#playerName");
 
 
-// Function to end the game
+const playerData = {
+    playerName: playerNameInput.value || "Anonymous",
+    timeTaken: elapsedTime || 0,
+    difficulty: gridSize || "Easy"
+};
+
+
 function endGame() {
-    clearInterval(timer); // Stop the timer
-    gameEnded = true; // Set game end flag to true
+    clearInterval(timer);
+    gameEnded = true;
+    endMessage.style.display = "block";
+    document.getElementById("timeTaken").innerText = `Time Taken: ${elapsedTime} seconds`;
 
-    // Display the end game message
-    endMessage.style.display = "block";  // Show the end message
-    document.getElementById("timeTaken").innerText = `Time Taken: ${elapsedTime} seconds`;  // Show elapsed time
+    const playerData = {
+        playerName: playerNameInput.value,
+        timeTaken: elapsedTime,
+        difficulty: gridSize
+    };
 
-    // Disable tile selection or other actions after the game ends
+    const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    leaderboardData.push(playerData);
+
+    // Save to local storage and log for debugging
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+    console.log("Saved leaderboard data:", JSON.parse(localStorage.getItem("leaderboard")));
+
     disableTileSelection();
 }
 
-// Function to disable tile selection
+
+function showLeaderboard() {
+    const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    
+    // Sort leaderboard data by time taken (ascending order)
+    leaderboardData.sort((a, b) => a.timeTaken - b.timeTaken);
+
+    // Reference the leaderboard table body
+    const leaderboardElement = document.getElementById("leaderboardData");
+    leaderboardElement.innerHTML = ""; // Clear any existing data
+
+    // if (leaderboardData.length === 0) {
+    //     leaderboardElement.innerHTML = `
+    //         <tr>
+    //             <td colspan="4">No data available yet. Be the first to play!</td>
+    //         </tr>
+    //     `;
+    //     return;
+    // }
+
+    // Populate the leaderboard with sorted data
+    leaderboardData.forEach((entry, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${entry.playerName || 'Anonymous'}</td>
+            <td>${entry.timeTaken || 0}</td>
+            <td>${entry.difficulty || 'Unknown'}</td>
+        `;
+        leaderboardElement.appendChild(row);
+    });
+
+    // Show leaderboard section and hide main menu
+    document.querySelector(".leaderboard_section_outerarea").hidden = false;
+    document.querySelector(".main_page").hidden = true;
+}
+
+// Add an event listener to the leaderboard button
+document.getElementById("leaderboard").addEventListener("click", showLeaderboard);
+
+function resetLeaderboard() {
+    const leaderboardData = JSON.parse(localStorage.getItem("leaderboard"));
+    if (!leaderboardData || leaderboardData.length === 0) {
+        return;
+    }
+
+    localStorage.removeItem("leaderboard");
+
+    const leaderboardElement = document.getElementById("leaderboardData");
+    leaderboardElement.innerHTML = `
+        <tr>
+            <td colspan="4">No data available yet. Be the first to play!</td>
+        </tr>
+    `;
+
+    console.log("Leaderboard has been reset.");
+}
+
 function disableTileSelection() {
     const tiles = document.querySelectorAll(".tile-options div");
     tiles.forEach(tile => {
-        tile.style.pointerEvents = "none"; // Disable clicking on each tile
+        tile.style.pointerEvents = "none";
     });
-
-    // Also disable game grid tile selections (assuming they are in the table)
     const gridCells = document.querySelectorAll("#gridTable td");
     gridCells.forEach(cell => {
-        cell.style.pointerEvents = "none"; // Disable clicking on game grid tiles
+        cell.style.pointerEvents = "none";
     });
 }
+document.querySelector("#backToMenuButton").addEventListener("click", returnToMenu);
+document.querySelector("#resetLeaderboardButton").addEventListener("click", resetLeaderboard);
+document.querySelector("#goBackToMenu").addEventListener("click", returnToMenu);
 
-// Function to reset the game and go back to the main menu
+
+
 function returnToMenu() {
-    // Hide the congratulatory message and game-related sections
-    endMessage.style.display = "none"; // Hide the end message
-    gameTitle.style.display = "none"; // Hide the game title
-    gamePage.style.display = "none"; // Hide the game page
-    rulesSection.style.display = "none"; // Hide the rules section (if it was open)
+    endMessage.style.display = "none"; // Hide the end message (if visible)
+    console.log("Returning to menu...");
 
-    // Show the menu section again
-    menuSection.style.display = "block"; // Make sure the menu is visible
+    // Hide the game container and leaderboard section
+    document.querySelector(".game_container").hidden = true; 
+    document.querySelector(".leaderboard_section_outerarea").hidden = true;
 
-    // Clear the player name input
-    playerNameInput.value = ""; // Clear player name input field
+    // Show the main menu
+    document.querySelector(".main_page").hidden = false;
 
-    // Deselect any selected difficulty buttons
-    document.querySelectorAll(".difficulty-btn").forEach(btn => btn.classList.remove("selected")); // Remove selected difficulty
+    // Reset player name input and deselect difficulty buttons
+    playerNameInput.value = "";
+    document.querySelectorAll(".difficulty-btn").forEach(btn => btn.classList.remove("selected"));
 
-    // Reset the game state to start fresh
-    resetGame(); // Reset game settings and prepare for a new game
+    // Reset the game state
+    resetGame();
 }
 
-// Function to reset the game
 function resetGame() {
-    clearInterval(timer); // Stop the timer
+    clearInterval(timer);
     elapsedTime = 0;
-    timerDisplay.innerText = "0"; // Reset timer display
-    gameEnded = false; // Reset game end flag
-
-    // Re-enable tile selection if the game is reset
+    timerDisplay.innerText = "0";
+    gameEnded = false;
     enableTileSelection();
-
-    // Clear the game grid (optional)
-    gridTable.innerHTML = ""; // Clear the game grid
+    gridTable.innerHTML = "";
 }
 
-// Function to re-enable tile selection
 function enableTileSelection() {
     const tiles = document.querySelectorAll(".tile-options div");
     tiles.forEach(tile => {
-        tile.style.pointerEvents = "auto"; // Re-enable clicking on each tile
+        tile.style.pointerEvents = "auto";
     });
-
-    // Re-enable grid tile selections (assuming they are in the table)
     const gridCells = document.querySelectorAll("#gridTable td");
     gridCells.forEach(cell => {
-        cell.style.pointerEvents = "auto"; // Re-enable clicking on game grid tiles
+        cell.style.pointerEvents = "auto";
     });
 }
 
-// Add an event listener for the "Go Back to Main Menu" button
-document.getElementById("goBackToMenu").addEventListener("click", returnToMenu);
+document.querySelector("#goBackToMenu").addEventListener("click", returnToMenu);
 
-// Function to show the rules section
-function showRules() {
-    rulesSection.style.display = "flex"; // Show rules section
-}
 
-// Function to hide the rules section
-function hideRules() {
-    rulesSection.style.display = "none"; // Hide rules section
-}
+
+

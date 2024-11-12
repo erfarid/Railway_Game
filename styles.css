@@ -148,6 +148,7 @@
     background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
+
 .modal-content {
     background-color: #f7f5f5;
     margin: 15% auto; /* 15% from the top and centered */
@@ -156,6 +157,7 @@
     width: 90%; /* Could be more or less, depending on screen size */
     border-radius: 10px; /* Rounded corners */
     font-size: 20px; /* Increased font size for overall content */
+    /* height: 20%; */
 }
 
 /* Increase font size for heading */
@@ -309,6 +311,35 @@
     text-align: center; /* Align title text to the center */
 }
 
+
+/* .leaderboard_section_outerarea {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+ */
+
+ .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+.leaderboard-table th, .leaderboard-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.leaderboard-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+.leaderboard-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.leaderboard-row:nth-child(odd) {
+    background-color: #fff;
+}
 
 
 /*----here i am makinng the game tittle name --*/
